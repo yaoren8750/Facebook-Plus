@@ -1,6 +1,6 @@
-// First-run welcome screen: the logo and product name, a short feature list with
-// custom glyphs, contact buttons, a "don't show again" toggle, and a primary
-// button that dismisses. Shown once on launch and again on demand from Settings.
+// 首次启动欢迎页面：展示 Logo 和产品名称、功能简介、联系方式、
+// “不再显示”开关以及主要操作按钮。
+// 首次启动时显示，也可以从设置中再次手动打开。
 
 #import "FBPWelcomeController.h"
 #import "FBPPrefs.h"
@@ -25,8 +25,8 @@ static const CGFloat kButtonHeight  = 54.0;
 + (void)presentIfNeeded {
     if (FBPEnabled(FBPKeyIntroduced)) return;
 
-    // Give Facebook's own launch UI time to settle; presenting during
-    // -didFinishLaunching lands on a controller that is about to be replaced.
+    // 给 Facebook 自身的启动界面留出加载时间。
+    // 如果在 -didFinishLaunching 中立即弹出，当前控制器可能随后被替换。
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
         [self present];
@@ -46,8 +46,8 @@ static const CGFloat kButtonHeight  = 54.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // A self-contained dark look, independent of the app's current appearance,
-    // so the light colours below always read correctly over the gradient.
+    // 独立的深色界面，不受 App 当前外观模式影响，
+    // 确保下方的浅色文字在渐变背景上始终清晰可见。
     self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
     self.view.backgroundColor = UIColor.blackColor;
 
@@ -102,8 +102,8 @@ static const CGFloat kButtonHeight  = 54.0;
 #pragma mark - Background
 
 - (void)buildBackground {
-    // A deep, tinted top fading to black — a branded backdrop rather than a plain
-    // blur, with a faint accent glow up top.
+    // 深色渐变背景：顶部带有轻微的品牌色调和柔和光晕，
+    // 向下逐渐过渡为黑色。
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.colors = @[
         (id)[UIColor colorWithRed:0.07 green:0.11 blue:0.20 alpha:1.0].CGColor,
@@ -147,7 +147,7 @@ static const CGFloat kButtonHeight  = 54.0;
     name.textColor = UIColor.labelColor;
     [row addArrangedSubview:name];
 
-    // Wrap so the logo+name group is centred as a unit.
+    // 将 Logo 和产品名称作为整体进行水平居中。
     UIView *wrap = [[UIView alloc] init];
     row.translatesAutoresizingMaskIntoConstraints = NO;
     [wrap addSubview:row];
@@ -220,12 +220,12 @@ static const CGFloat kButtonHeight  = 54.0;
     hairline.translatesAutoresizingMaskIntoConstraints = NO;
     [bar addSubview:hairline];
 
-    // Card 1 — a dedicated card for the "don't show again" toggle.
+    // 卡片 1：用于设置“不再显示”选项。
     UIView *toggleCard = [self cardView];
     [bar addSubview:toggleCard];
 
     UILabel *dontShowLabel = [[UILabel alloc] init];
-    dontShowLabel.text = @"Don't show this popup again";
+    dontShowLabel.text = @"不再显示此弹窗";
     dontShowLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightMedium];
     dontShowLabel.textColor = UIColor.labelColor;
     dontShowLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -237,14 +237,20 @@ static const CGFloat kButtonHeight  = 54.0;
     _dontShowSwitch.translatesAutoresizingMaskIntoConstraints = NO;
     [toggleCard addSubview:_dontShowSwitch];
 
-    // Card 2 — a separate card holding the two contact buttons, split down the middle.
+    // 卡片 2：Telegram 和 GitHub 联系方式。
     UIView *footerCard = [self cardView];
     [bar addSubview:footerCard];
 
-    UIButton *telegram = [self contactButtonWithImage:@"telegram" title:@"Telegram"
-                                             tintImage:NO action:@selector(openTelegram)];
-    UIButton *github = [self contactButtonWithImage:@"github" title:@"GitHub"
-                                          tintImage:YES action:@selector(openGitHub)];
+    UIButton *telegram = [self contactButtonWithImage:@"telegram"
+                                                 title:@"Telegram"
+                                             tintImage:NO
+                                                action:@selector(openTelegram)];
+
+    UIButton *github = [self contactButtonWithImage:@"github"
+                                               title:@"GitHub"
+                                           tintImage:YES
+                                              action:@selector(openGitHub)];
+
     [footerCard addSubview:telegram];
     [footerCard addSubview:github];
 
@@ -253,18 +259,26 @@ static const CGFloat kButtonHeight  = 54.0;
     divider.translatesAutoresizingMaskIntoConstraints = NO;
     [footerCard addSubview:divider];
 
-    // Primary button.
+    // 主按钮。
     UIButton *continueButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [continueButton setTitle:@"Get Started" forState:UIControlStateNormal];
+    [continueButton setTitle:@"开始使用" forState:UIControlStateNormal];
     continueButton.titleLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightSemibold];
-    [continueButton setTitleColor:[UIColor colorWithRed:0.04 green:0.08 blue:0.14 alpha:1.0]
+
+    [continueButton setTitleColor:[UIColor colorWithRed:0.04
+                                                   green:0.08
+                                                    blue:0.14
+                                                   alpha:1.0]
                          forState:UIControlStateNormal];
+
     continueButton.backgroundColor = FBPTintColor();
     continueButton.layer.cornerRadius = kButtonHeight / 2.0;
     continueButton.layer.cornerCurve = kCACornerCurveContinuous;
     continueButton.translatesAutoresizingMaskIntoConstraints = NO;
-    [continueButton addTarget:self action:@selector(continueTapped)
-             forControlEvents:UIControlEventTouchUpInside];
+
+    [continueButton addTarget:self
+                        action:@selector(continueTapped)
+              forControlEvents:UIControlEventTouchUpInside];
+
     [bar addSubview:continueButton];
 
     [NSLayoutConstraint activateConstraints:@[
@@ -281,8 +295,10 @@ static const CGFloat kButtonHeight  = 54.0;
 
         [dontShowLabel.leadingAnchor constraintEqualToAnchor:toggleCard.leadingAnchor constant:16],
         [dontShowLabel.centerYAnchor constraintEqualToAnchor:toggleCard.centerYAnchor],
+
         [_dontShowSwitch.trailingAnchor constraintEqualToAnchor:toggleCard.trailingAnchor constant:-16],
         [_dontShowSwitch.centerYAnchor constraintEqualToAnchor:toggleCard.centerYAnchor],
+
         [_dontShowSwitch.leadingAnchor constraintGreaterThanOrEqualToAnchor:dontShowLabel.trailingAnchor constant:8],
 
         // Footer card.
@@ -313,10 +329,11 @@ static const CGFloat kButtonHeight  = 54.0;
         [continueButton.heightAnchor constraintEqualToConstant:kButtonHeight],
         [continueButton.bottomAnchor constraintEqualToAnchor:bar.safeAreaLayoutGuide.bottomAnchor constant:-14],
     ]];
+
     return bar;
 }
 
-/// A rounded, faintly filled container used to group a control into its own card.
+/// 用于将相关控件分组到独立卡片中的圆角容器。
 - (UIView *)cardView {
     UIView *card = [[UIView alloc] init];
     card.backgroundColor = [UIColor.labelColor colorWithAlphaComponent:0.08];
@@ -330,50 +347,88 @@ static const CGFloat kButtonHeight  = 54.0;
                                title:(NSString *)title
                            tintImage:(BOOL)tintImage
                               action:(SEL)action {
-    // A brand icon shows in its own colours; a monochrome one is tinted white.
+
+    // 品牌图标保持原本颜色，单色图标则使用系统颜色。
     UIImage *icon = tintImage
         ? [UIImage fbp_imageNamed:imageName]
         : [[UIImage imageNamed:imageName
                      inBundle:NSBundle.fbp_resourceBundle
           compatibleWithTraitCollection:nil]
              imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    // Scale the bundled glyph down to a button-appropriate size.
+
+    // 将图标缩放到适合按钮的尺寸。
     if (icon) {
         UIGraphicsImageRendererFormat *fmt = [UIGraphicsImageRendererFormat preferredFormat];
         fmt.opaque = NO;
+
         CGSize target = CGSizeMake(20, 20);
+
         UIGraphicsImageRenderer *renderer =
             [[UIGraphicsImageRenderer alloc] initWithSize:target format:fmt];
-        UIImage *rendered = [renderer imageWithActions:^(UIGraphicsImageRendererContext *ctx) {
-            [icon drawInRect:CGRectMake(0, 0, target.width, target.height)];
-        }];
-        icon = [rendered imageWithRenderingMode:tintImage ? UIImageRenderingModeAlwaysTemplate
-                                                          : UIImageRenderingModeAlwaysOriginal];
+
+        UIImage *rendered =
+            [renderer imageWithActions:^(UIGraphicsImageRendererContext *ctx) {
+                [icon drawInRect:CGRectMake(0, 0, target.width, target.height)];
+            }];
+
+        icon = [rendered imageWithRenderingMode:
+                tintImage ? UIImageRenderingModeAlwaysTemplate
+                          : UIImageRenderingModeAlwaysOriginal];
     }
 
-    NSDictionary *attrs = @{ NSFontAttributeName : [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold] };
+    NSDictionary *attrs = @{
+        NSFontAttributeName :
+            [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]
+    };
 
     UIButton *button;
-    // UIButtonConfiguration lays image + title out reliably (legacy setImage +
-    // setTitle no longer render together on modern iOS).
+
+    // UIButtonConfiguration 可以更可靠地处理图标和文字布局。
     if (@available(iOS 15.0, *)) {
-        UIButtonConfiguration *cfg = [UIButtonConfiguration plainButtonConfiguration];
+
+        UIButtonConfiguration *cfg =
+            [UIButtonConfiguration plainButtonConfiguration];
+
         cfg.image = icon;
-        cfg.attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrs];
+
+        cfg.attributedTitle =
+            [[NSAttributedString alloc] initWithString:title
+                                            attributes:attrs];
+
         cfg.imagePadding = 8;
+
         cfg.baseForegroundColor = UIColor.labelColor;
-        cfg.contentInsets = NSDirectionalEdgeInsetsMake(0, 0, 0, 0);
-        button = [UIButton buttonWithConfiguration:cfg primaryAction:nil];
+
+        cfg.contentInsets =
+            NSDirectionalEdgeInsetsMake(0, 0, 0, 0);
+
+        button =
+            [UIButton buttonWithConfiguration:cfg
+                                primaryAction:nil];
+
     } else {
+
         button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [button setImage:icon forState:UIControlStateNormal];
-        [button setTitle:[@"  " stringByAppendingString:title] forState:UIControlStateNormal];
-        [button setTitleColor:UIColor.labelColor forState:UIControlStateNormal];
+
+        [button setImage:icon
+                forState:UIControlStateNormal];
+
+        [button setTitle:[@"  " stringByAppendingString:title]
+                forState:UIControlStateNormal];
+
+        [button setTitleColor:UIColor.labelColor
+                     forState:UIControlStateNormal];
+
         button.titleLabel.font = attrs[NSFontAttributeName];
     }
+
     button.tintColor = UIColor.labelColor;
     button.translatesAutoresizingMaskIntoConstraints = NO;
-    [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+
+    [button addTarget:self
+               action:action
+     forControlEvents:UIControlEventTouchUpInside];
+
     return button;
 }
 
@@ -381,36 +436,61 @@ static const CGFloat kButtonHeight  = 54.0;
 
 - (NSArray<NSDictionary *> *)pages {
     return @[
-        @{@"image" : @"incognito",
-          @"title" : @"Slip in unseen",
-          @"desc"  : @"Open a story and no read receipt leaves your device — you send it only if and when you decide to."},
-        @{@"image" : @"alert",
-          @"title" : @"No misfires",
-          @"desc"  : @"A short confirm sits between a careless tap and a like you never meant to give."},
-        @{@"image" : @"setting",
-          @"title" : @"One tidy panel",
-          @"desc"  : @"Every switch lives in a single sheet, and each one stays off until you flip it yourself."},
-        @{@"image" : @"magic",
-          @"title" : @"A calmer app",
-          @"desc"  : @"Trim ads and suggestions, switch on a true-black night look, and repaint the icon — small touches, out of your way."},
+        @{
+            @"image" : @"incognito",
+            @"title" : @"悄无声息地浏览",
+            @"desc"  : @"查看限时动态时不会留下已读痕迹。是否发送已读状态，由你自己决定。"
+        },
+
+        @{
+            @"image" : @"alert",
+            @"title" : @"防止误操作",
+            @"desc"  : @"在容易误触的操作前增加确认步骤，避免不小心点出你并不想要的赞。"
+        },
+
+        @{
+            @"image" : @"setting",
+            @"title" : @"设置集中管理",
+            @"desc"  : @"所有功能开关集中在一个页面中，每项功能都保持关闭，直到你亲自开启。"
+        },
+
+        @{
+            @"image" : @"magic",
+            @"title" : @"更清爽的体验",
+            @"desc"  : @"减少广告和推荐内容，开启纯黑夜间模式，还可以自定义应用图标。简单调整，让界面更符合你的使用习惯。"
+        },
     ];
 }
 
 #pragma mark - Actions
 
 - (void)continueTapped {
-    // The toggle is the user's choice about future auto-shows: on = never again.
-    [FBPPrefs.shared setBool:self.dontShowSwitch.isOn forKey:FBPKeyIntroduced];
+    // 开关代表用户是否希望以后自动显示此欢迎页面：
+    // 开启 = 以后不再自动显示。
+    [FBPPrefs.shared setBool:self.dontShowSwitch.isOn
+                      forKey:FBPKeyIntroduced];
+
     [FBPPrefs.shared commit];
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)openTelegram { [self openURLString:kTelegramURL]; }
-- (void)openGitHub   { [self openURLString:kGitHubURL]; }
+- (void)openTelegram {
+    [self openURLString:kTelegramURL];
+}
+
+- (void)openGitHub {
+    [self openURLString:kGitHubURL];
+}
 
 - (void)openURLString:(NSString *)string {
     NSURL *url = [NSURL URLWithString:string];
-    if (url) [UIApplication.sharedApplication openURL:url options:@{} completionHandler:nil];
+
+    if (url) {
+        [UIApplication.sharedApplication openURL:url
+                                         options:@{}
+                               completionHandler:nil];
+    }
 }
 
 @end
