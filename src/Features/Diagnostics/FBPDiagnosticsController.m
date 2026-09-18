@@ -23,7 +23,7 @@ static NSString *const kCellIdentifier = @"fbp.diagnostics.row";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Diagnostics";
+    self.title = FBPL(@"diagnostics.title");
     self.view.backgroundColor = UIColor.systemBackgroundColor;
     self.view.tintColor = FBPTintColor();
 
@@ -32,7 +32,7 @@ static NSString *const kCellIdentifier = @"fbp.diagnostics.row";
                                                       target:self
                                                       action:@selector(shareReport:)];
     self.navigationItem.leftBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@"Close"
+    [[UIBarButtonItem alloc] initWithTitle:FBPL(@"diagnostics.close")
                                           style:UIBarButtonItemStylePlain
                                          target:self
                                          action:@selector(close)];
@@ -42,7 +42,7 @@ static NSString *const kCellIdentifier = @"fbp.diagnostics.row";
     UIToolbar *toolbar = [[UIToolbar alloc] init];
     toolbar.translatesAutoresizingMaskIntoConstraints = NO;
     toolbar.items = @[
-        [[UIBarButtonItem alloc] initWithTitle:@"Capture screen"
+        [[UIBarButtonItem alloc] initWithTitle:FBPL(@"diagnostics.captureScreen")
                                          style:UIBarButtonItemStylePlain
                                         target:self
                                         action:@selector(captureScreen)],
@@ -50,7 +50,7 @@ static NSString *const kCellIdentifier = @"fbp.diagnostics.row";
             initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                  target:nil
                                  action:nil],
-        [[UIBarButtonItem alloc] initWithTitle:@"Clear log"
+        [[UIBarButtonItem alloc] initWithTitle:FBPL(@"diagnostics.clearLog")
                                          style:UIBarButtonItemStylePlain
                                         target:self
                                         action:@selector(clearLog)],
@@ -113,71 +113,71 @@ static NSString *const kCellIdentifier = @"fbp.diagnostics.row";
 ///
 /// The controller has to get out of the way first, or the only thing captured
 /// is the diagnostics screen itself.
-- (void)captureScreen {
-    UIViewController *presenter = self.presentingViewController;
-    [self dismissViewControllerAnimated:YES completion:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)),
-                       dispatch_get_main_queue(), ^{
-            [FBPDiagnostics.shared captureCurrentScreen];
-            [FBPToastManager.shared showMessage:@"Screen captured to log"
-                                        success:YES];
-        });
-    }];
-    (void)presenter;
-}
-
-- (void)clearLog {
-    [FBPDiagnostics.shared clear];
-    [self viewWillAppear:NO];
-    [FBPToastManager.shared showMessage:@"Log cleared" success:YES];
-}
-
-- (void)close {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) return (NSInteger)self.groups.count;
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
+
+    if (section == 0) {
+        return (NSInteger)self.groups.count;
+    }
+
     return (NSInteger)MAX(self.events.count, (NSUInteger)1);
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return section == 0 ? @"Hooks"
-                        : @"Events";
+- (NSString *)tableView:(UITableView *)tableView
+ titleForHeaderInSection:(NSInteger)section {
+
+    return section == 0
+        ? FBPL(@"diagnostics.hooks")
+        : FBPL(@"diagnostics.events");
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    return section == 0 ? @"Facebook loads most of its code on demand, so open the Feed, Reels and a story first, then come back here." : nil;
+- (NSString *)tableView:(UITableView *)tableView
+ titleForFooterInSection:(NSInteger)section {
+
+    return section == 0
+        ? FBPL(@"diagnostics.footer")
+        : nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
     UITableViewCell *cell =
         [tableView dequeueReusableCellWithIdentifier:kCellIdentifier
                                         forIndexPath:indexPath];
+
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.numberOfLines = 0;
     cell.detailTextLabel.numberOfLines = 0;
 
     if (indexPath.section == 0) {
+
         NSDictionary *row = self.groups[indexPath.row];
+
         cell.textLabel.text = row[@"title"];
         cell.textLabel.font = FBPFont(15, UIFontWeightMedium);
         cell.detailTextLabel.text = row[@"detail"];
+
     } else {
-        cell.textLabel.text = self.events.count
-            ? self.events[indexPath.row]
-            : @"Nothing recorded yet.";
-        cell.textLabel.font = [UIFont monospacedSystemFontOfSize:12
-                                                          weight:UIFontWeightRegular];
+
+        cell.textLabel.text =
+            self.events.count
+                ? self.events[indexPath.row]
+                : FBPL(@"diagnostics.empty");
+
+        cell.textLabel.font =
+            [UIFont monospacedSystemFontOfSize:12
+                                        weight:UIFontWeightRegular];
+
         cell.detailTextLabel.text = nil;
     }
+
     return cell;
 }
 

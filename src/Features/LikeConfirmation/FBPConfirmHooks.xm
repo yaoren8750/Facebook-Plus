@@ -135,29 +135,36 @@ static BOOL gConfirmedPassthrough = NO;
     // …) names the exact reaction in the message, so the prompt stays correct
     // across reaction types and languages without the tweak shipping its own copy
     // of each.
-    NSString *reaction = view.accessibilityLabel.length ? view.accessibilityLabel : nil;
-    BOOL reels = [key isEqualToString:FBPKeyReelsLike];
-    NSString *alertTitle = reels ? @"Confirm Reels Like" : @"Confirm Like";
-    NSString *message = reaction
-        ? [NSString stringWithFormat:@"Send a “%@” reaction?", reaction]
-        : @"Send this reaction?";
+    NSString *reaction =
+    view.accessibilityLabel.length ? view.accessibilityLabel : nil;
 
-    UIAlertController *alert =
-        [UIAlertController alertControllerWithTitle:alertTitle
-                                            message:message
-                                     preferredStyle:UIAlertControllerStyleAlert];
+BOOL reels = [key isEqualToString:FBPKeyReelsLike];
 
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                              style:UIAlertActionStyleCancel
-                                            handler:nil]];
+NSString *alertTitle =
+    reels ? FBPL(@"like.confirmReels") : FBPL(@"like.confirm");
+
+NSString *message =
+    reaction
+        ? [NSString stringWithFormat:FBPL(@"like.sendReaction"), reaction]
+        : FBPL(@"like.sendThisReaction");
+
+UIAlertController *alert =
+    [UIAlertController alertControllerWithTitle:alertTitle
+                                        message:message
+                                 preferredStyle:UIAlertControllerStyleAlert];
+
+[alert addAction:
+    [UIAlertAction actionWithTitle:FBPL(@"like.cancel")
+                             style:UIAlertActionStyleCancel
+                           handler:nil]];
 
     // Held strongly on purpose: the forwarder must outlive the prompt, or the
     // replay below would message a deallocated object.
     __block id forwarder = self;
     UIAlertAction *confirm =
-        [UIAlertAction actionWithTitle:@"Like"
-                                 style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction *action) {
+    [UIAlertAction actionWithTitle:FBPL(@"like.confirmButton")
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
         // Only now does the like actually fire.
         gConfirmedPassthrough = YES;
         [forwarder handleControlEventFromSender:sender withEvent:event];

@@ -96,7 +96,7 @@ shouldMarkThreadSeenStateUpdates:(BOOL)shouldUpdate {
     UIViewController *controller = self.controller;
     id manager = [controller valueForKey:@"_bucketsSeenStateManager"];
     if (!manager) {
-        [FBPToastManager.shared showMessage:@"Something went wrong" success:NO];
+        [FBPToastManager.shared showMessage:FBPL(@"story.error") success:NO];
         return;
     }
 
@@ -116,7 +116,7 @@ shouldMarkThreadSeenStateUpdates:(BOOL)shouldUpdate {
     SEL selector = [manager respondsToSelector:modern] ? modern
                  : ([manager respondsToSelector:legacy] ? legacy : NULL);
     if (!selector) {
-        [FBPToastManager.shared showMessage:@"Something went wrong" success:NO];
+        [FBPToastManager.shared showMessage:FBPL(@"story.error") success:NO];
         return;
     }
 
@@ -136,7 +136,7 @@ shouldMarkThreadSeenStateUpdates:(BOOL)shouldUpdate {
     [invocation invoke];
     gAllowSeenPassthrough = NO;
 
-    [FBPToastManager.shared showMessage:@"Marked as seen" success:YES];
+    [FBPToastManager.shared showMessage:FBPL(@"story.markedAsSeen") success:YES];
 }
 
 /// Asks first, then marks seen. Mark-as-seen is the eye button's only action, so
@@ -148,19 +148,21 @@ shouldMarkThreadSeenStateUpdates:(BOOL)shouldUpdate {
     while (host.presentedViewController) host = host.presentedViewController;
 
     UIAlertController *alert =
-        [UIAlertController alertControllerWithTitle:@"Mark as seen"
-                                            message:@"Send the read receipt for this story now?"
-                                     preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                              style:UIAlertActionStyleCancel
-                                            handler:nil]];
-    __weak typeof(self) weakSelf = self;
-    UIAlertAction *confirm =
-        [UIAlertAction actionWithTitle:@"Mark as seen"
-                                 style:UIAlertActionStyleDefault
-                               handler:^(UIAlertAction *action) {
-            [weakSelf markCurrentThreadAsSeen];
-        }];
+    [UIAlertController alertControllerWithTitle:FBPL(@"story.markAsSeen.title")
+                                        message:FBPL(@"story.markAsSeen.message")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+
+[alert addAction:[UIAlertAction actionWithTitle:FBPL(@"common.cancel")
+                                          style:UIAlertActionStyleCancel
+                                        handler:nil]];
+
+__weak typeof(self) weakSelf = self;
+UIAlertAction *confirm =
+    [UIAlertAction actionWithTitle:FBPL(@"story.markAsSeen.confirm")
+                             style:UIAlertActionStyleDefault
+                           handler:^(UIAlertAction *action) {
+        [weakSelf markCurrentThreadAsSeen];
+    }];
     [alert addAction:confirm];
     alert.preferredAction = confirm;
 
@@ -296,8 +298,8 @@ static BOOL gStoryRowInstalled = NO;
     objc_setAssociatedObject(viewer, kStoryTargetKey, target,
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
-    NSString *title  = @"Mark as seen";
-    NSString *detail = @"Send the read receipt for this story now.";
+    NSString *title  = FBPL(@"story.markAsSeen.title");
+NSString *detail = FBPL(@"story.markAsSeen.message");
 
     id bridge = [objc_getClass("FDSControl_SwiftBridge") alloc];
     SEL initSel = NSSelectorFromString(

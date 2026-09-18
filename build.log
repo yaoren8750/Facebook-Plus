@@ -1,0 +1,68 @@
+[1;31m> [1;3;39mMaking all for tweak FacebookPlus…[m
+[0;32m==> [1;39mCompiling src/Core/FBPlus.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Core/FBPResources.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Core/FBPPrefs.m (arm64)…[m
+[0;31m==> [1;39mPreprocessing src/Core/FBPEntry.xm…[m
+[0;32m==> [1;39mCompiling src/UI/Toast/FBPToastWindow.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Core/FBPDiagnostics.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/UI/Toast/FBPToastManager.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/UI/Toast/FBPToastView.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/UI/Sheet/FBPSheetPresenter.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/UI/Sheet/FBPSheetController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/UI/Sheet/FBPDetentPresentationController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Onboarding/FBPWelcomeController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Diagnostics/FBPDiagnosticsController.m (arm64)…[m
+[0;31m==> [1;39mPreprocessing src/Features/Feed/FBPFeedHooks.xm…[m
+[0;32m==> [1;39mCompiling src/Settings/FBPSettingsController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/AppIcons/FBPAppIconController.m (arm64)…[m
+[0;31m==> [1;39mPreprocessing src/Features/Stories/FBPStoryHooks.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/LikeConfirmation/FBPConfirmHooks.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/AppChrome/FBPChromeHooks.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Menu/FBPMenuHooks.xm…[m
+[0;32m==> [1;39mCompiling src/Features/Language/FBPLanguageController.m (arm64)…[m
+[0;31m==> [1;39mPreprocessing src/Features/OLED/FBPOLEDHooks.xm…[m
+[0;31m==> [1;39mPreprocessing src/Features/Links/FBPLinkHooks.xm…[m
+[0;32m==> [1;39mCompiling src/Features/Update/FBPUpdateChecker.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Update/FBPUpdateController.m (arm64)…[m
+[0;32m==> [1;39mCompiling src/PluginsInject/Paths.mm (arm64)…[m
+[0;31m==> [1;39mPreprocessing src/PluginsInject/SecRebinds.xm…[m
+[0;32m==> [1;39mCompiling src/PluginsInject/PluginsInject.mm (arm64)…[m
+[0;31m==> [1;39mPreprocessing src/PluginsInject/SideloadFix.xm…[m
+[0;32m==> [1;39mCompiling fishhook/fishhook.c (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Downloads/FBPReelsDownloader.mm (arm64)…[m
+While building module 'Photos' imported from src/Features/Downloads/FBPReelsDownloader.mm:8:
+In file included from <module-includes>:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.h:35:
+[1m/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/Photos.framework/Headers/PHImageManager.h:18:2: [0m[0;1;31merror: [0m[1m"Photos requires C++11 or later"[0m
+   18 | #error "Photos requires C++11 or later"[0m
+      | [0;1;32m ^
+[0m[1m/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/Photos.framework/Headers/PHImageManager.h:21:47: [0m[0;1;31merror: [0m[1mexpected identifier or '{'[0m
+   21 | typedef NS_ENUM(NSInteger, UIImageOrientation);[0m
+      | [0;1;32m                                              ^
+[0m[1msrc/Features/Downloads/FBPReelsDownloader.mm:8:9: [0m[0;1;31mfatal error: [0m[1mcould not build module 'Photos'[0m
+    8 | #import <Photos/Photos.h>[0m
+      | [0;1;32m ~~~~~~~^
+[0m3 errors generated.
+gmake[3]: *** [/Users/tiantian/theos/makefiles/instance/rules.mk:312: /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/Downloads/FBPReelsDownloader.mm.0ce280e2.o] Error 1
+gmake[3]: *** Waiting for unfinished jobs....
+[0;32m==> [1;39mCompiling src/Core/FBPEntry.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Feed/FBPFeedHooks.xm (arm64)…[m
+[0;32m==> [1;39mCompiling src/Features/Downloads/FBPStoryDownloader.mm (arm64)…[m
+While building module 'Photos' imported from src/Features/Downloads/FBPStoryDownloader.mm:7:
+In file included from <module-includes>:1:
+In file included from /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/Photos.framework/Headers/Photos.h:35:
+[1m/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/Photos.framework/Headers/PHImageManager.h:18:2: [0m[0;1;31merror: [0m[1m"Photos requires C++11 or later"[0m
+   18 | #error "Photos requires C++11 or later"[0m
+      | [0;1;32m ^
+[0m[1m/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.2.sdk/System/Library/Frameworks/Photos.framework/Headers/PHImageManager.h:21:47: [0m[0;1;31merror: [0m[1mexpected identifier or '{'[0m
+   21 | typedef NS_ENUM(NSInteger, UIImageOrientation);[0m
+      | [0;1;32m                                              ^
+[0m[1msrc/Features/Downloads/FBPStoryDownloader.mm:7:9: [0m[0;1;31mfatal error: [0m[1mcould not build module 'Photos'[0m
+    7 | #import <Photos/Photos.h>[0m
+      | [0;1;32m ~~~~~~~^
+[0m3 errors generated.
+gmake[3]: *** [/Users/tiantian/theos/makefiles/instance/rules.mk:312: /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/Downloads/FBPStoryDownloader.mm.0ce280e2.o] Error 1
+rm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/PluginsInject/SecRebinds.xm.mm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/LikeConfirmation/FBPConfirmHooks.xm.mm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/Menu/FBPMenuHooks.xm.mm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/AppChrome/FBPChromeHooks.xm.mm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/Links/FBPLinkHooks.xm.mm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/PluginsInject/SideloadFix.xm.mm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/Stories/FBPStoryHooks.xm.mm /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/src/Features/OLED/FBPOLEDHooks.xm.mm
+gmake[2]: *** [/Users/tiantian/theos/makefiles/instance/library.mk:52: /Users/tiantian/Facebook-Plus/.theos/obj/debug/arm64/FacebookPlus.dylib] Error 2
+gmake[1]: *** [/Users/tiantian/theos/makefiles/instance/library.mk:37: internal-library-all_] Error 2
+gmake: *** [/Users/tiantian/theos/makefiles/master/rules.mk:146: FacebookPlus.all.tweak.variables] Error 2

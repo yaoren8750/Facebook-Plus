@@ -12,6 +12,8 @@ THEOS_PACKAGE_SCHEME ?= rootless
 
 include $(THEOS)/makefiles/common.mk
 
+ADDITIONAL_CXXFLAGS += -std=c++11
+
 TWEAK_NAME = FacebookPlus
 
 FacebookPlus_FILES = \
@@ -37,8 +39,8 @@ FacebookPlus_FILES = \
 	src/Features/AppChrome/FBPChromeHooks.xm \
 	src/Features/OLED/FBPOLEDHooks.xm \
 	src/Features/Menu/FBPMenuHooks.xm \
-	src/Features/Downloads/FBPReelsDownloader.xm \
-	src/Features/Downloads/FBPStoryDownloader.xm \
+	src/Features/Downloads/FBPReelsDownloader.mm \
+	src/Features/Downloads/FBPStoryDownloader.mm \
 	src/Features/Links/FBPLinkHooks.xm \
 	src/Features/Update/FBPUpdateController.m \
 	src/Features/Update/FBPUpdateChecker.m \
@@ -58,7 +60,8 @@ FacebookPlus_CFLAGS  = -fobjc-arc -Wno-deprecated-declarations \
 	-Isrc/Features/Onboarding -Isrc/Features/Diagnostics \
 	-Isrc/Features/AppIcons -Isrc/Features/Language \
 	-Isrc/Features/Update -Isrc/PluginsInject
-FacebookPlus_FRAMEWORKS = UIKit Foundation Photos QuartzCore CoreGraphics AVFoundation CoreMedia Security
+	
+	FacebookPlus_FRAMEWORKS = UIKit Foundation Photos QuartzCore CoreGraphics AVFoundation CoreMedia Security
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 

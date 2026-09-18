@@ -1,64 +1,88 @@
-/* Facebook Plus — 简体中文. Auto-generated from test/gen_strings.py.
-   Keep translations in sync via that script; keys match every other .lproj. */
+/* Facebook Plus — 简体中文 */
 
 "settings.subtitle" = "插件偏好设置";
+
 "row.noads.title" = "移除广告";
 "row.norecs.title" = "移除推荐内容";
 "row.norecs.desc" = "隐藏算法推荐的帖子。";
 "row.nopymk.title" = "移除“你可能认识的人”";
 "row.noreels.title" = "移除 Reels 轮播";
 "row.nothreads.title" = "移除 Threads 推广";
-"row.nothreads.desc" = "隐藏“发现新 threads”卡片。";
+"row.nothreads.desc" = "隐藏“发现新 Threads”卡片。";
 "row.nogroups.title" = "移除小组推荐";
 "row.nogroups.desc" = "隐藏“你可以加入的小组”版块。";
 "row.nosuggestedpages.title" = "移除推荐主页";
 "row.nosuggestedpages.desc" = "隐藏“你可能喜欢的主页”栏目。";
+
 "row.feedlike.title" = "确认帖子点赞";
 "row.feedlike.desc" = "发送点赞前先询问。";
 
 "row.downloadreels.title" = "下载 Reels";
 "row.downloadreels.desc" = "观看 Reels 时显示下载按钮。";
+
 "row.downloadstories.title" = "下载快拍";
 "row.downloadstories.desc" = "观看快拍时显示下载按钮。";
+
 "row.reelslike.title" = "确认 Reels 点赞";
+
 "row.anonstories.title" = "匿名查看快拍";
 "row.anonstories.desc" = "查看快拍时不发送已读回执。";
+
 "row.noautonext.title" = "关闭自动播放下一个";
+
 "row.nostorypymk.title" = "隐藏快拍推荐";
 "row.nostorypymk.desc" = "从快拍栏移除“你可能认识的人”。";
+
 "row.oled.title" = "OLED 深色模式";
 "row.oled.desc" = "将整个应用变为纯黑。";
+
 "row.appicon.title" = "应用图标";
 "row.appicon.desc" = "选择其他应用图标。";
+
 "row.autoclear.title" = "启动时清理缓存";
 "row.clearcache.title" = "立即清理缓存";
+
 "row.diagnostics.title" = "诊断";
 "row.diagnostics.desc" = "查看哪些功能已启用。";
+
 "row.checkupdate.title" = "检查更新";
 "row.checkupdate.desc" = "查看是否有更新的版本。";
+
 "row.welcome.title" = "显示欢迎界面";
+
 "row.reset.title" = "重置所有设置";
+
 "row.linksinsafari.title" = "在 Safari 中打开链接";
 "row.linksinsafari.desc" = "在默认浏览器而非应用内浏览器中打开外部链接。";
+
 "row.language.title" = "语言";
+
 "footer.by" = "Facebook Plus · 作者 ";
+
 "reset.title" = "重置所有设置";
 "reset.message" = "所有选项将恢复默认值，此操作无法撤销。";
 "reset.confirm" = "重置";
+
 "toast.settingsReset" = "设置已重置";
 "toast.cacheCleared" = "缓存已清理";
+
 "appicon.default" = "默认";
 "appicon.applied" = "已应用“%@”图标";
 "appicon.error.unsupported" = "此应用不允许更改图标。";
 "appicon.error.failed" = "无法更改图标。";
+
 "common.cancel" = "取消";
 "common.ok" = "好";
 
-/* Downloads — runtime messages */
+
+/* Downloads */
+
 "download.appName" = "Facebook Plus";
 "download.error.unknown" = "未知错误";
+
 "download.story.saved" = "已保存到照片";
 "download.story.a11y" = "下载快拍";
+
 "download.reel.a11y" = "下载 Reel";
 "download.reel.progress" = "正在下载 Reel…";
 "download.reel.saving" = "下载完成，正在保存…";
@@ -71,7 +95,9 @@
 "download.reel.tmpFailed" = "无法创建临时视频文件。";
 "download.reel.noLink" = "无法获取此视频的链接。";
 
-/* Update screen */
+
+/* Update */
+
 "update.title" = "有可用更新";
 "update.subtitle" = "版本 %@ 现已可用。";
 "update.whatsnew" = "更新内容";
@@ -81,3 +107,53 @@
 "update.later" = "稍后";
 "update.uptodate" = "你使用的是最新版本。";
 "update.failed" = "无法检查更新。";
+
+
+/* Diagnostics */
+
+"diagnostics.title" = "诊断";
+"diagnostics.close" = "关闭";
+"diagnostics.captureScreen" = "截取屏幕";
+"diagnostics.clearLog" = "清除日志";
+
+"diagnostics.hooks" = "Hook 状态";
+"diagnostics.events" = "事件";
+
+"diagnostics.empty" = "暂无记录。";
+
+"diagnostics.screenCaptured" = "屏幕信息已记录";
+"diagnostics.logCleared" = "日志已清除";
+
+"diagnostics.footer" = "Facebook 的大部分代码会按需加载。请先打开动态、Reels 和快拍，然后返回此处。";
+
+
+/* Stories */
+
+"story.error" = "操作失败";
+"story.markedAsSeen" = "已标记为已看";
+
+"story.markAsSeen.title" = "标记为已看";
+"story.markAsSeen.message" = "现在发送此快拍的已读回执吗?";
+"story.markAsSeen.confirm" = "标记为已看";
+
+
+/* Like confirmation */
+
+"like.confirmReels" = "确认 Reels 点赞";
+"like.confirm" = "确认点赞";
+
+"like.sendReaction" = "发送“%@”表情吗?";
+"like.sendThisReaction" = "发送此表情吗?";
+
+"like.cancel" = "取消";
+"like.confirmButton" = "点赞";
+
+
+/* App icons */
+
+"appicon.chill" = "Chill";
+"appicon.dreamy" = "Dreamy";
+"appicon.fab" = "Fab";
+"appicon.fierce" = "Fierce";
+"appicon.lovey" = "Lovey";
+"appicon.vaporwave" = "Vaporwave";
